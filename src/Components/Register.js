@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Register = () => {
-  const rootUrl = "http://localhost:5000";
+  const rootUrl = "https://mail-app-backend.onrender.com";
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     userName: "",

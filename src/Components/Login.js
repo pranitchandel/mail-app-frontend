@@ -7,7 +7,7 @@ import setAuthToken from "../Components/Utils/setAuthToken";
 import axios from "axios";
 
 const Login = () => {
-  const rootUrl = "http://localhost:5000";
+  const rootUrl = "https://mail-app-backend.onrender.com";
   const [error, setError] = useState("");
 
   const [formData, setFormData] = useState({

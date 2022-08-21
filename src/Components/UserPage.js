@@ -15,7 +15,7 @@ const UserPage = () => {
 
   const [mailCategory, setMailCategory] = useState("inbox");
   const [refresh, setRefresh] = useState(false);
-  const rootUrl = "http://localhost:5000";
+  const rootUrl = "https://mail-app-backend.onrender.com";
   const [user, setUser] = useState({});
   const [activeUserList, setActiveUserList] = useState([]);
   const [currentUser, setCurrentUser] = useState({});

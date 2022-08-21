@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 const SearchBar = ({ setCurrentUser, setRemoveUser }) => {
-  const rootUrl = "http://localhost:5000";
+  const rootUrl = "https://mail-app-backend.onrender.com";
   const currentAccountId = useParams();
 
   const initialText = "";

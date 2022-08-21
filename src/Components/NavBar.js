@@ -21,7 +21,7 @@ const NavBar = ({ setMailCategory, setRefresh, setCurrentUser }) => {
 
   const currentParam = useParams();
   const [err, setErr] = useState("");
-  const rootUrl = "http://localhost:5000";
+  const rootUrl = "https://mail-app-backend.onrender.com";
   const {
     userName,
     email,

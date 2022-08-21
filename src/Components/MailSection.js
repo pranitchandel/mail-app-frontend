@@ -18,7 +18,7 @@ export const MessageContext = createContext();
 
 const MailSection = ({ mailCategory, refresh, setCurrentUser }) => {
   const navigate = useNavigate();
-  const rootUrl = "http://localhost:5000";
+  const rootUrl = "https://mail-app-backend.onrender.com";
   const [mailResponseArray, setMailResponseArray] = useState([]);
   const [currentMailSection, setCurrentMailSection] = useState(false);
   const [loading, setLoading] = useState(false);
