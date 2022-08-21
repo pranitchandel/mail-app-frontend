@@ -1,38 +1,484 @@
-.App {
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100;200;400&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Be Vietnam Pro", sans-serif;
+}
+
+body {
+  background-color: #fff;
+}
+
+input {
+  outline: none;
+  border: none;
+}
+
+input[type="search"] {
+  border: none;
+  outline: none;
+  width: 80%;
+  height: 40px;
+}
+
+input[type="submit"] {
+  cursor: pointer;
+}
+
+form label {
+  margin-top: 30px;
+  margin-left: 30px;
+  color: whitesmoke;
+  font-weight: bold;
+  font-size: large;
+}
+.formError {
+  height: 20px;
+  color: red;
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+button {
+  display: inline-block;
+  height: 100%;
+  cursor: pointer;
+  outline: none;
+  border: none;
+}
+ul {
+  list-style-type: none;
+}
+.formContainer {
+  background-color: rgb(0, 0, 0, 0.75);
+  position: absolute;
+  width: 25%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 450px;
+  border-radius: 10px;
+}
+.registerForm {
+  height: 550px;
+}
+.loginForm {
+  height: 370px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.loginInputSection {
+  width: 80%;
+  background-color: whitesmoke;
+  border-radius: 3px;
+  color: black;
+  display: block;
+  margin: 8px auto;
+  padding-left: 10px;
+  height: 40px;
+  font-size: large;
+  letter-spacing: 0.5px;
+  text-overflow: ellipsis;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#loginBtn {
+  width: 80%;
+  height: 40px;
+  background-color: #ffffff;
+  color: #080710;
+  padding-left: 0px;
+  margin: 50px auto 20px auto;
+  font-size: larger;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.signUpSpan {
+  color: blanchedalmond;
+  cursor: pointer;
+}
+.formContainer p {
+  width: 70%;
+  margin: auto;
+  color: #ffffff;
+}
+
+.mainSection {
   display: flex;
-  flex-direction: column;
+}
+
+table {
+  table-layout: fixed;
+}
+
+tr {
+  cursor: pointer;
+}
+
+tr:hover {
+  /* box-shadow: inset -3px -3px rgb(100 121 143 / 12%); */
+  box-shadow: 0 -0.3em 0.3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+}
+td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mailContainer {
+  margin: 5px;
+  position: relative;
+  height: 90vh;
+  width: 72%;
+  /* background-color: grey; */
+  overflow: auto;
+}
+.mailList {
+  display: flex;
+}
+.mailSectionContainer {
+  position: relative;
+  width: 100%;
+  overflow: auto;
+}
+
+.mail {
+  height: 40px;
+}
+
+.star {
+  /* background-color: #d3e3fd; */
+  display: grid;
+  place-items: center;
+}
+
+.sender {
+  /* background-color: aqua; */
+  width: 25%;
+}
+.body {
+  /* background-color: blueviolet; */
+  width: 55%;
+  text-overflow: ellipsis;
+}
+.time {
+  /* background-color: aquamarine; */
+  width: 13%;
+}
+
+.navContainer {
+  width: 25%;
+}
+
+.composeButton {
+  display: flex;
+  padding: 15px 4px 0px 30px;
+  height: 60px;
+  width: 70%;
+  background-color: #c2e7ff;
+  border-radius: 8px;
+  margin: 10px 0px;
+  left: 10%;
+}
+
+.composeButton span {
+  font-size: x-large;
+  font-weight: bold;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.navContainer ul li {
+  cursor: pointer;
+  height: 30px;
+  margin-bottom: 10px;
+  width: 100%;
+  display: flex;
+  background-color: #d3e3fd;
+  padding: 4px 4px 4px 30px;
+  border-radius: 0px 8px 8px 0px;
+}
+.navContainer ul li span {
+  /* width: 100%; */
+  font-size: larger;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  /* background-color: aqua; */
+}
+.navContainer span::before {
+  content: "";
+  width: 30px;
+}
+.listDiv {
+  width: 50%;
+  background-color: yellowgreen;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
+::placeholder {
+  padding-left: 4px;
+  font-size: large;
+  letter-spacing: 0.4px;
+  font-weight: 500;
+}
+/*Search bar*/
+.searchContainer {
+  margin-top: 10px;
+  position: relative;
+  display: flex;
+}
+
+.searchLogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25%;
+  border-radius: 10px;
+  background-color: #e1e8f3;
+}
+
+.logoSpan {
+  display: inline-block;
+  /* width: 20%; */
+  font-size: xx-large;
+}
+
+.searchBar {
+  position: relative;
+  width: 50%;
+  margin-left: 5px;
+}
+
+.searchBar input {
+  background-color: #eef3fc;
+  font-size: large;
+  letter-spacing: 0.5px;
+  padding-left: 4px;
+  border-radius: 10px;
+}
+
+.searchBar button {
+  position: absolute;
+  width: 20%;
+  background-color: #c2e7ff;
+  border-radius: 10px;
+  font-size: large;
+  margin-left: 5px;
+}
+
+.currentUser {
+  display: flex;
+  height: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(40, 114, 40);
+  position: absolute;
+  right: 1.5%;
+  cursor: pointer;
+  color: whitesmoke;
+}
+
+.changeAccount {
+  display: flex;
+  height: 100%;
+  aspect-ratio: 1;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 5%;
+  cursor: pointer;
+}
+
+.composeDiv {
+  padding: 5px;
+  background-color: #d5ecfc;
+  position: absolute;
+  bottom: 0;
+  right: 10%;
+  width: 600px;
+  aspect-ratio: 1;
+  z-index: 1;
+}
+.composeTopBar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sendButton {
+  position: absolute;
+  bottom: 0%;
+  left: 0;
+  padding: 5px;
+}
+
+.sendButton button {
+  width: 90px;
+  height: 40px;
+  background-color: #0b57d0;
+  border-radius: 50px;
+  color: #eef3fc;
+  font-size: medium;
+}
+
+.message textarea {
+  max-width: 100%;
+  max-height: 300px;
+}
+
+.composeDiv div {
+  margin: 15px 0;
+}
+
+.composeDiv div input {
+  width: 100%;
+  height: 25px;
+  font-size: medium;
+  padding-left: 2px;
+}
+.composeDiv div input::placeholder {
+  font-size: medium;
+  color: #08071062;
+  padding-left: 2px;
+}
+.composeDiv div textarea {
+  font-size: medium;
+  padding-left: 2px;
+}
+
+.closeBtn {
+  background: none;
+}
+.composeError {
+  color: red;
+  padding-left: 2px;
+  height: 5px;
+  font-size: small;
+}
+
+.mailCategory {
+  font-size: xx-large;
+}
+
+.loadingContainer {
+  position: absolute;
+  width: 95%;
+  height: 90%;
+  z-index: 1;
+}
+
+.loadingClass {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  translate: transform(-50%, -50%);
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  border: 10px solid #f3f3f3;
+  border: 10px solid rgba(122, 123, 124, 0.8);
+  border-top: 10px solid black;
+  align-items: center;
+  animation: loading 1s linear infinite;
+}
+
+@keyframes loading {
+  100% {
     transform: rotate(360deg);
   }
+  75% {
+    transform: rotate(270deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  25% {
+    transform: rotate(90deg);
+  }
+  0% {
+    transform: rotate(0deg);
+  }
+}
+
+.mailTitle {
+  font-weight: bold;
+  font-size: x-large;
+}
+.mailTitle::after {
+  display: inline-block;
+  content: "";
+  width: 10px;
+}
+.mailMessage {
+  margin-top: 30px;
+  font-size: medium;
+  line-height: 1.5;
+}
+
+#accounts {
+  display: none;
+}
+
+.accountsClass {
+  background-color: whitesmoke;
+  width: 200px;
+  position: absolute;
+  top: 100%;
+  right: 1.5%;
+  z-index: 1;
+  aspect-ratio: 1;
+  color: black;
+}
+.accountsClass ul li {
+  cursor: pointer;
+  margin: 5px 2px;
+}
+.accountBtn button {
+  position: absolute;
+  border: 2px solid black;
+  width: 100%;
+  height: 30px;
+  font-size: medium;
+}
+
+.newLogin button {
+  bottom: 40%;
+}
+
+.logout button {
+  bottom: 0%;
+}
+
+.logoutCurrent button {
+  bottom: 20%;
+}
+
+.accountBtn :hover {
+  background-color: #eef3fc;
+}
+
+.accountsClass ul li:hover {
+  background-color: #ffffff;
+}
+.mailPage {
+  padding: 5px;
+  width: 70%;
+  margin: 10px auto;
+  background-color: #dff2ff;
+  min-height: 50%;
+  border-radius: 10px;
+}
+.mailAddress {
+  /* background-color: #ffffff; */
+}
+.mailTimeStamp {
+  margin-top: 10px;
+  background-color: #c2e7ff;
+  max-width: 200px;
+  border-radius: 10px;
+  text-align: center;
 }
