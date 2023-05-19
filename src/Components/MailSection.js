@@ -1,6 +1,6 @@
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
-import { memo, useCallback, useEffect, useState } from "react";
+import { createContext, useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import Loading from "./Loading";
@@ -71,35 +71,6 @@ const MailSection = () => {
     return response;
   }, [user, section, accountList]);
 
-  const mailItem = ({ mail }) => {
-    return (
-      <tr
-      // onClick={() => handleMailClick(mail)}
-      >
-        <td
-          className="mail star"
-          // onClick={(e) => handleStarred(e, mail)}
-        >
-          {(section === "inbox" && mail.inboxStarred) ||
-          (section === "sent" && mail.sentStarred) ? (
-            <StarIcon />
-          ) : (
-            <StarBorderIcon />
-          )}
-        </td>
-        <td className="mail sender">{mail.fromName}</td>
-        <td className="mail body">
-          {mail.title}-{mail.message}
-        </td>
-        <td className="mail time">
-          {new Date(mail.timeStamp).toLocaleString()}
-        </td>
-      </tr>
-    );
-  };
-
-  const MemoizedMailItem = memo(mailItem);
-
   const handleStarred = (e, mail) => {
     e.stopPropagation();
     if (user.starred.includes(mail.messageId)) {
@@ -112,7 +83,26 @@ const MailSection = () => {
         <table className="mailSectionContainer">
           <tbody>
             {mailResponseArray.map((mail, key) => (
-              <MemoizedMailItem mail={mail} key={key} />
+              <tr key={key} onClick={() => handleMailClick(mail)}>
+                <td
+                  className="mail star"
+                  onClick={(e) => handleStarred(e, mail)}
+                >
+                  {(section === "inbox" && mail.inboxStarred) ||
+                  (section === "sent" && mail.sentStarred) ? (
+                    <StarIcon />
+                  ) : (
+                    <StarBorderIcon />
+                  )}
+                </td>
+                <td className="mail sender">{mail.fromName}</td>
+                <td className="mail body">
+                  {mail.title}-{mail.message}
+                </td>
+                <td className="mail time">
+                  {new Date(mail.timeStamp).toLocaleString()}
+                </td>
+              </tr>
             ))}
           </tbody>
         </table>
@@ -132,7 +122,7 @@ const MailSection = () => {
     const currentUser = accountList.filter((acc) => acc._id === userId)[0];
     setUser(currentUser);
     mailArray();
-  }, [user, accountList, section]);
+  }, [mailArray, user, accountList, section]);
 
   const handleMailClick = (mail) => {
     navigate(`/user/${params.id}/mail/${mail.messageId}`);
