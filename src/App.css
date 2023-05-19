@@ -8,7 +8,7 @@
 }
 
 body {
-  background-color: #fff;
+  background-color: #f7f8fc;
 }
 
 input {
@@ -29,7 +29,7 @@ input[type="submit"] {
 
 form label {
   margin-top: 30px;
-  margin-left: 30px;
+  /* margin-left: 30px; */
   color: whitesmoke;
   font-weight: bold;
   font-size: large;
@@ -52,24 +52,25 @@ ul {
 .formContainer {
   background-color: rgb(0, 0, 0, 0.75);
   position: absolute;
-  width: 25%;
+  width: 22%;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   height: 450px;
   border-radius: 10px;
+  padding: 20px;
 }
 .registerForm {
   height: 550px;
 }
 .loginForm {
-  height: 370px;
+  height: 400px;
 }
 
 .loginInputSection {
-  width: 80%;
+  width: 100%;
   background-color: whitesmoke;
-  border-radius: 3px;
+  border-radius: 5px;
   color: black;
   display: block;
   margin: 8px auto;
@@ -81,26 +82,91 @@ ul {
 }
 
 #loginBtn {
-  width: 80%;
-  height: 40px;
+  width: 100%;
   background-color: #ffffff;
   color: #080710;
   padding-left: 0px;
-  margin: 50px auto 20px auto;
+  margin: 35px auto;
   font-size: larger;
   font-weight: bold;
   border-radius: 5px;
+  position: relative;
+}
+
+.loginBtnWrapper{
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .signUpSpan {
+  margin-left: 3px;
   color: blanchedalmond;
   cursor: pointer;
 }
 .formContainer p {
-  width: 70%;
+  width: 100%;
+  text-align: center;
   margin: auto;
   color: #ffffff;
 }
+
+
+.accountWrapper{
+  position: absolute;
+  top: 40%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  margin: auto;
+  text-align: left;
+  width: 25%;
+  background-color:#e6e8ee ;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.accountHeader {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.accountList{
+  width:100%;
+  margin: 10px 0px;
+  padding: 5px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.accountList:hover{
+  box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.352)
+}
+
+.accountBtns{
+  display: block;
+  cursor: pointer;
+  background: #e6e8ee;
+  font-size:medium;
+  color: rgb(39, 39, 167);
+}
+
+.accountBtns :hover{
+  text-decoration: underline;
+}
+
+.logoutAll{
+  margin-top: 5px;
+  color: rgb(222, 0, 0);
+}
+
+.accountNavBtns{
+  padding: 5px;
+}
+
 
 .mainSection {
   display: flex;
@@ -112,13 +178,15 @@ table {
 
 tr {
   cursor: pointer;
+  margin-top: 2px;
 }
 
 tr:hover {
   /* box-shadow: inset -3px -3px rgb(100 121 143 / 12%); */
-  box-shadow: 0 -0.3em 0.3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
-    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
-}
+  /* box-shadow: 0 -0.3em 0.3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3); */
+   box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.1);
+  }
 td {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -126,12 +194,13 @@ td {
 }
 
 .mailContainer {
-  margin: 5px;
-  position: relative;
+  position: absolute;
+  top:10%;
+  left:18%;
   height: 90vh;
-  width: 72%;
-  /* background-color: grey; */
+  width: 80%;
   overflow: auto;
+  background-color: #ffffff;
 }
 .mailList {
   display: flex;
@@ -140,6 +209,7 @@ td {
   position: relative;
   width: 100%;
   overflow: auto;
+  border-radius: 8px;
 }
 
 .mail {
@@ -167,53 +237,58 @@ td {
 }
 
 .navContainer {
-  width: 25%;
+  margin-left: 10px;
+  width: 15%;
 }
 
 .composeButton {
   display: flex;
-  padding: 15px 4px 0px 30px;
+  align-items: center;
+  justify-content: space-evenly;
   height: 60px;
-  width: 70%;
+  width: 100%;
   background-color: #c2e7ff;
   border-radius: 8px;
+  padding: 0px 15px;
   margin: 10px 0px;
-  left: 10%;
 }
 
 .composeButton span {
   font-size: x-large;
   font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .navContainer ul li {
   cursor: pointer;
-  height: 30px;
+  height: 40px;
   margin-bottom: 10px;
   width: 100%;
   display: flex;
-  background-color: #d3e3fd;
-  padding: 4px 4px 4px 30px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 10px 4px 30px;
   border-radius: 0px 8px 8px 0px;
 }
+
+.navContainer ul li:hover{
+    background-color: #e3e3e3;
+}
+
+.activeSection{
+  background-color: #d3e3fd !important;
+}
+
 .navContainer ul li span {
-  /* width: 100%; */
   font-size: larger;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  /* background-color: aqua; */
 }
-.navContainer span::before {
-  content: "";
-  width: 30px;
-}
+
+
+.sectionHeading{
+  width: 90px;
+} 
+
 .listDiv {
   width: 50%;
-  background-color: yellowgreen;
 }
 
 ::placeholder {
@@ -224,7 +299,7 @@ td {
 }
 /*Search bar*/
 .searchContainer {
-  margin-top: 10px;
+  margin: 10px;
   position: relative;
   display: flex;
 }
@@ -233,9 +308,10 @@ td {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 25%;
+  width: 15%;
   border-radius: 10px;
   background-color: #e1e8f3;
+  height: 60px;
 }
 
 .logoSpan {
@@ -247,15 +323,21 @@ td {
 .searchBar {
   position: relative;
   width: 50%;
-  margin-left: 5px;
+  margin: auto;
 }
 
 .searchBar input {
   background-color: #eef3fc;
   font-size: large;
-  letter-spacing: 0.5px;
-  padding-left: 4px;
+  /* letter-spacing: 0.2px; */
+  padding: 10px;
   border-radius: 10px;
+  height: 50px;
+}
+
+.searchBar ::placeholder{
+  padding-left: 2px;
+  letter-spacing: 0px;
 }
 
 .searchBar button {
@@ -293,28 +375,35 @@ td {
 }
 
 .composeDiv {
-  padding: 5px;
+  padding: 10px;
   background-color: #d5ecfc;
   position: absolute;
   bottom: 0;
   right: 10%;
   width: 600px;
-  aspect-ratio: 1;
   z-index: 1;
+  animation: composeHeightInc 0.1s linear;
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.352);
 }
+
+@keyframes composeHeightInc {
+  from{
+    height: 0px;
+  }
+  to{
+    height: 600px;
+  }
+}
+
 .composeTopBar {
+  margin: 10px 0px 0px 0px;
   display: flex;
   justify-content: space-between;
 }
 
 .sendButton {
-  position: absolute;
-  bottom: 0%;
-  left: 0;
-  padding: 5px;
-}
-
-.sendButton button {
+  margin-top: 5px;
   width: 90px;
   height: 40px;
   background-color: #0b57d0;
@@ -323,29 +412,38 @@ td {
   font-size: medium;
 }
 
-.message textarea {
-  max-width: 100%;
-  max-height: 300px;
-}
 
 .composeDiv div {
-  margin: 15px 0;
 }
 
-.composeDiv div input {
+.composeInputs input{
+  border-radius: 5px;
+  margin: 15px 0px 0px 0px;
   width: 100%;
   height: 25px;
   font-size: medium;
   padding-left: 2px;
 }
+
+/* .composeDiv div input {
+ 
+} */
 .composeDiv div input::placeholder {
   font-size: medium;
   color: #08071062;
   padding-left: 2px;
 }
 .composeDiv div textarea {
+  width: 100%;
   font-size: medium;
-  padding-left: 2px;
+  resize:none;
+  padding: 5px;
+  margin-top: 20px;
+  max-height: 350px;
+}
+
+.message textarea {
+  /* max-width: 100%;*/
 }
 
 .closeBtn {
@@ -354,7 +452,7 @@ td {
 .composeError {
   color: red;
   padding-left: 2px;
-  height: 5px;
+  height: 10px;
   font-size: small;
 }
 
@@ -362,28 +460,41 @@ td {
   font-size: xx-large;
 }
 
-.loadingContainer {
-  position: absolute;
-  width: 95%;
-  height: 90%;
-  z-index: 1;
-}
 
 .loadingClass {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  top: 50%;
+  top: 30%;
   left: 50%;
-  translate: transform(-50%, -50%);
+  translate: transform(-30%, -50%);
   position: absolute;
-  display: flex;
-  justify-content: center;
   border: 10px solid #f3f3f3;
   border: 10px solid rgba(122, 123, 124, 0.8);
   border-top: 10px solid black;
-  align-items: center;
   animation: loading 1s linear infinite;
+}
+
+.accountLoader{
+  position: static;
+  width: 27px;
+  height: 27px;
+  top: 0;
+  left: 0;
+  border: 5px solid rgba(122, 123, 124, 0.8);
+  border-top: 5px solid black;
+
+}
+
+.loginLoader{
+  position: static;
+  width: 27px;
+  /* top: 0;
+  left:100%; */
+  height: 27px;
+  margin-left: 5px;
+  border: 5px solid rgba(122, 123, 124, 0.8);
+  border-top: 5px solid black;
 }
 
 @keyframes loading {
@@ -413,72 +524,156 @@ td {
   content: "";
   width: 10px;
 }
-.mailMessage {
+.mailMessage{
+  /* min-height: 80vh; */
   margin-top: 30px;
   font-size: medium;
   line-height: 1.5;
+  padding: 5px;
+  white-space: pre-wrap;
 }
+
 
 #accounts {
   display: none;
 }
 
 .accountsClass {
-  background-color: whitesmoke;
-  width: 200px;
+  width: 250px;
   position: absolute;
-  top: 100%;
+  top: 110%;
   right: 1.5%;
   z-index: 1;
   aspect-ratio: 1;
   color: black;
+  padding: 5px;
+  background-color: #e6e8ee;
+  border-radius: 8px;
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.352);
 }
 .accountsClass ul li {
   cursor: pointer;
   margin: 5px 2px;
 }
 .accountBtn button {
-  position: absolute;
-  border: 2px solid black;
+  /* position: absolute; */
+  /* border: 2px solid black; */
   width: 100%;
   height: 30px;
   font-size: medium;
 }
 
-.newLogin button {
-  bottom: 40%;
-}
 
-.logout button {
-  bottom: 0%;
-}
-
-.logoutCurrent button {
-  bottom: 20%;
+.accountBtnContainer{
+  align-self: flex-end;
 }
 
 .accountBtn :hover {
   background-color: #eef3fc;
 }
 
+.logout button{
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 0px 0px 6px 6px;
+  margin: 5px auto;
+  padding: 0px 15px;
+  height: 35px;
+  gap:15px;
+  font-size: 20px;
+}
+
+.currentUserWrapper{
+  border-radius: 6px 6px 0px 0px;
+  padding: 5px;
+  background-color: #ffffff;
+}
+
+.currentUserName{
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.currentUserEmail{
+  display: flex;
+  align-items: center;
+}
+
+.accountBtnContainer button{
+  margin: 5px auto 0px auto;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  background-color: #ffffff;
+  gap: 15px;
+  height: 35px;
+  border-radius: 6px;
+}
+
 .accountsClass ul li:hover {
   background-color: #ffffff;
 }
 .mailPage {
-  padding: 5px;
-  width: 70%;
+  padding: 15px;
+  width: 60%;
   margin: 10px auto;
   background-color: #dff2ff;
   min-height: 50%;
   border-radius: 10px;
+  height: fit-content;
 }
 .mailAddress {
   /* background-color: #ffffff; */
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
+
+.fromAddress{
+  display: flex;
+  align-items: center;
+  gap:15px;
+}
+
+.fromUsername{
+  font-size: 20px;
+}
+
+.fromEmail {
+  font-size: 13px;
+  font-weight:400;
+}
+
+.toEmail{
+  font-size: 15px;
+}
+
 .mailTimeStamp {
-  margin-top: 10px;
   background-color: #c2e7ff;
   max-width: 200px;
   border-radius: 10px;
+  text-align: center;
+  padding: 5px;
+}
+
+.mailPageContainer {
+  position: absolute;
+  top:10%;
+  left:18%;
+  height: 90vh;
+  width: 80%;
+  overflow: auto;
+  background-color: #ffffff;
+  padding: 5px;
+}
+
+.emptyMessages{
+  font-size:30px;
+  margin-top: 50px;
+  /* border: 2px solid green; */
   text-align: center;
 }

@@ -1,62 +1,54 @@
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
-import { UserContext } from "./UserPage";
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import Loading from "./Loading";
-import axios from "axios";
-import MailPage from "./MailPage";
+import { useSelector } from "react-redux";
+import { request } from "../services/request";
 
-export const MessageContext = createContext();
-
-const MailSection = ({ mailCategory, refresh, setCurrentUser }) => {
+const MailSection = () => {
   const navigate = useNavigate();
-  const rootUrl = "https://mail-app-backend.onrender.com";
+  const { accountList, token } = useSelector((state) => state.login);
+  const { id: userId, section } = useParams();
   const [mailResponseArray, setMailResponseArray] = useState([]);
-  const [currentMailSection, setCurrentMailSection] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [currentMail, setCurrentMail] = useState({});
-  const {
-    userName,
-    email,
-    inboxList,
-    markedRead,
-    sentList,
-    starredList,
-    draftList,
-  } = useContext(UserContext).user;
+
+  const [user, setUser] = useState({});
 
   const params = useParams();
   const mailArray = useCallback(async () => {
     setLoading(true);
     let response = {};
     let category = [];
-    if (mailCategory === "inbox") {
-      category = inboxList;
+
+    if (section === "inbox") {
+      category = user.inboxList;
     }
-    if (mailCategory === "sent") {
-      category = sentList;
+    if (section === "sent") {
+      category = user.sentList;
     }
-    if (mailCategory === "draft") {
-      category = draftList;
+    if (section === "draft") {
+      category = user.draftList;
     }
+
     if (category !== undefined && category.length > 0) {
       response = await Promise.all(
         category.map(async (mail) => {
-          const res = await axios.get(`${rootUrl}/api/messages/${mail}`);
-          const fromRes = await axios.get(
-            `${rootUrl}/api/users/userId/${res.data.fromUserId}`
-          );
-          const toRes = await axios.get(
-            `${rootUrl}/api/users/userId/${res.data.toUserId}`
-          );
+          const userToken = token.find((tk) => tk.userId === userId);
+          const res = await request({
+            url: `/api/messages/${mail}`,
+            token: userToken.token,
+          });
+          const fromRes = await request({
+            url: `/api/users/userId/${res.data.fromUserId}`,
+            token: userToken.token,
+          });
+          const toRes = await request({
+            url: `/api/users/userId/${res.data.toUserId}`,
+            token: userToken.token,
+          });
+
           const updatedRes = {
             fromName: fromRes.data.userName,
             message: res.data.message,
@@ -73,66 +65,80 @@ const MailSection = ({ mailCategory, refresh, setCurrentUser }) => {
         })
       );
     }
+
     setMailResponseArray(response);
     setLoading(false);
     return response;
-  }, [mailCategory, inboxList, draftList, sentList]);
+  }, [user, section, accountList]);
+
+  const mailItem = ({ mail }) => {
+    return (
+      <tr
+      // onClick={() => handleMailClick(mail)}
+      >
+        <td
+          className="mail star"
+          // onClick={(e) => handleStarred(e, mail)}
+        >
+          {(section === "inbox" && mail.inboxStarred) ||
+          (section === "sent" && mail.sentStarred) ? (
+            <StarIcon />
+          ) : (
+            <StarBorderIcon />
+          )}
+        </td>
+        <td className="mail sender">{mail.fromName}</td>
+        <td className="mail body">
+          {mail.title}-{mail.message}
+        </td>
+        <td className="mail time">
+          {new Date(mail.timeStamp).toLocaleString()}
+        </td>
+      </tr>
+    );
+  };
+
+  const MemoizedMailItem = memo(mailItem);
+
+  const handleStarred = (e, mail) => {
+    e.stopPropagation();
+    if (user.starred.includes(mail.messageId)) {
+    }
+  };
 
   const mailSection = (
     <>
-      <strong className="mailCategory">{mailCategory} </strong>
-      <table className="mailSectionContainer">
-        <tbody>
-          {!loading && mailResponseArray.length > 0 ? (
-            mailResponseArray.map((mail, key) => (
-              <tr key={key} onClick={() => handleMailClick(mail)}>
-                <td className="mail star">
-                  {(mailCategory === "inbox" && mail.inboxStarred) ||
-                  (mailCategory === "sent" && mail.sentStarred) ? (
-                    <StarIcon />
-                  ) : (
-                    <StarBorderIcon />
-                  )}
-                </td>
-                <td className="mail sender">{mail.fromName}</td>
-                <td className="mail body">
-                  {mail.title}-{mail.message}
-                </td>
-                <td className="mail time">
-                  {new Date(mail.timeStamp).toLocaleString()}
-                </td>
-              </tr>
-            ))
-          ) : loading ? (
-            <tr>
-              <td>
-                <Loading />
-              </td>
-            </tr>
-          ) : (
-            "empty"
-          )}
-        </tbody>
-      </table>
+      {mailResponseArray.length > 0 ? (
+        <table className="mailSectionContainer">
+          <tbody>
+            {mailResponseArray.map((mail, key) => (
+              <MemoizedMailItem mail={mail} key={key} />
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <div className="emptyMessages">No messages</div>
+      )}
     </>
   );
+
   useEffect(() => {
+    if (token.length === 0) {
+      navigate("/login");
+    }
+  }, []);
+
+  useEffect(() => {
+    const currentUser = accountList.filter((acc) => acc._id === userId)[0];
+    setUser(currentUser);
     mailArray();
-  }, [mailArray, inboxList, draftList, sentList, refresh]);
+  }, [user, accountList, section]);
 
   const handleMailClick = (mail) => {
-    console.log(mail);
-    console.log(params);
-    setCurrentMailSection(true);
-    setCurrentMail(mail);
     navigate(`/user/${params.id}/mail/${mail.messageId}`);
   };
   return (
-    <div className="mailContainer">
-      <MessageContext.Provider value={currentMail}>
-        {!currentMailSection ? mailSection : <MailPage />}
-      </MessageContext.Provider>
-    </div>
+    <div className="mailContainer">{loading ? <Loading /> : mailSection}</div>
   );
 };
 

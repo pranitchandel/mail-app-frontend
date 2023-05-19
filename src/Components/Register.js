@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+
+import { request } from "../services/request";
+import Loading from "./Loading";
 
 const Register = () => {
-  const rootUrl = "https://mail-app-backend.onrender.com";
   const [error, setError] = useState("");
+  const [showLoader, setShowLoader] = useState(false);
   const [formData, setFormData] = useState({
     userName: "",
     email: "",
@@ -15,6 +17,9 @@ const Register = () => {
   const { userName, email, password, password2 } = formData;
 
   const handleChange = (e) => {
+    if (error !== "") {
+      setError("");
+    }
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -22,18 +27,24 @@ const Register = () => {
     navigate("/login");
   };
   const handleSubmit = async (e) => {
-    setError("");
     e.preventDefault();
     if (password !== password2) {
       setError("Passwords not matching");
       return;
     }
-    console.log("Form data", formData);
-    axios
-      .post(`${rootUrl}/api/users/register`, formData)
-      .then((res) => navigate("/login"))
+    setShowLoader(true);
+    request({
+      url: `/api/users/register`,
+      isLoader: true,
+      method: "post",
+      data: formData,
+    })
+      .then((res) => {
+        setShowLoader(true);
+        navigate("/login");
+      })
       .catch((err) => {
-        console.log(err.response.data);
+        setShowLoader(true);
         setError(err.response.data.msg);
       });
   };
@@ -92,14 +103,17 @@ const Register = () => {
           placeholder="Confirm password"
           className="loginInputSection"
         />
-        <input
+        <button
           type="submit"
-          value="Register"
-          className="loginInputSection"
+          className="loginInputSection loginBtnWrapper"
           id="loginBtn"
-        />
+        >
+          <div>Register</div>
 
-        <p className="">
+          <div> {showLoader && <Loading loaderClassName="loginLoader" />}</div>
+        </button>
+
+        <p className="signupToLogin">
           Already registered?
           <span onClick={handleNavigateRegister} className="signUpSpan">
             Login

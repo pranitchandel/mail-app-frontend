@@ -1,9 +1,5 @@
-const Loading = () => {
-  return (
-    <div className="loadingContainer">
-      <div className="loadingClass"></div>
-    </div>
-  );
+const Loading = ({ loaderClassName }) => {
+  return <div className={`loadingClass ${loaderClassName}`}></div>;
 };
 
 export default Loading;

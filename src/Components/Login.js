@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
-
-import setAuthToken from "../Components/Utils/setAuthToken";
-
-import axios from "axios";
+import { request } from "../services/request";
+import { useDispatch, useSelector } from "react-redux";
+import { setToken, setAccountList } from "../redux/actions/loginActionData";
+import { createIdToken, updateActiveUserList } from "./Utils/Utils";
+import Loading from "./Loading";
 
 const Login = () => {
-  const rootUrl = "https://mail-app-backend.onrender.com";
   const [error, setError] = useState("");
+  const dispatch = useDispatch();
+  const [showLoader, setShowLoader] = useState(false);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -17,37 +19,54 @@ const Login = () => {
   const navigate = useNavigate();
   const { email, password } = formData;
 
-  useEffect(() => {
-    if (localStorage.getItem("jwtTokenList")) {
-      return;
-    }
-    let jwtTokenList = [];
-    localStorage.setItem("jwtTokenList", JSON.stringify(jwtTokenList));
-  }, []);
-
   const handleChange = (e) => {
+    if (error !== "") {
+      setError("");
+    }
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleNavigateRegister = () => {
     navigate("/register");
   };
-  const handleSubmit = (e) => {
+
+  const getNonDuplicateTokens = (tokens, newToken) => {
+    return tokens.filter(
+      (token) => jwtDecode(token).id !== jwtDecode(newToken).id
+    );
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post(`${rootUrl}/api/users/login`, formData)
-      .then((res) => {
+    setShowLoader(true);
+    request({
+      url: `/api/users/login`,
+      isLoader: true,
+      method: "post",
+      data: formData,
+    })
+      .then(async (res) => {
         let jwtTokenList = [];
-        jwtTokenList = JSON.parse(localStorage.getItem("jwtTokenList") || "[]");
+        jwtTokenList = JSON.parse(localStorage.getItem("jwtTokenList")) || [];
+        jwtTokenList = getNonDuplicateTokens(jwtTokenList, res.data.token);
+
         const { token } = res.data;
         jwtTokenList.push(token);
+
+        const idToken = await createIdToken(jwtTokenList);
+        dispatch(setToken(idToken));
+
+        await updateActiveUserList(idToken).then((decodedResult) => {
+          dispatch(setAccountList(decodedResult));
+        });
         localStorage.setItem("jwtTokenList", JSON.stringify(jwtTokenList));
-        setAuthToken(token);
+
         const decoded = jwtDecode(token);
-        navigate(`/user/${decoded.id}`);
+        setShowLoader(false);
+        navigate(`/user/${decoded.id}/inbox`);
       })
       .catch((err) => {
-        console.log(err.response.data);
+        setShowLoader(false);
         setError(err.response.data.msg);
       });
   };
@@ -87,14 +106,16 @@ const Login = () => {
           placeholder="Password"
           className="loginInputSection"
         />
-        <input
+        <button
           type="submit"
-          value="Login"
-          className="loginInputSection"
+          className="loginInputSection loginBtnWrapper"
           id="loginBtn"
-        />
+        >
+          <div>Login</div>
 
-        <p className="">
+          <div> {showLoader && <Loading loaderClassName="loginLoader" />}</div>
+        </button>
+        <p className="loginToSignup">
           Not registered yet?
           <span onClick={handleNavigateRegister} className="signUpSpan">
             Sign up
